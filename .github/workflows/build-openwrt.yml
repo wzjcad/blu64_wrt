@@ -71,10 +71,14 @@ jobs:
       run: cd openwrt && ./scripts/feeds update -a
 
     - name: Install feeds
-      run: cd openwrt && ./scripts/feeds install -a
+      run: cd openwrt && ./scripts/feeds install -a -p
       
     - name: Install feeds
-      run: cd openwrt && ./scripts/feeds install -a
+      run: |
+        cd openwrt && ./scripts/feeds install -a -p
+        ./scripts/feeds update nas nas_luci
+        ./scripts/feeds install -a -p nas
+        ./scripts/feeds install -a -p nas_luci
       
     - name: Load custom configuration
       run: |
